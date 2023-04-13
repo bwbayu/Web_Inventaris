@@ -161,7 +161,7 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <a class="m-0 small text-primary card-link" href="../table/stokKertas">View More <i
+          <a class="m-0 small text-primary card-link" href="../table/Stok_Kertas">View More <i
               class="fas fa-chevron-right"></i></a>
         </div>
       </div>
@@ -234,7 +234,7 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <a class="m-0 small text-primary card-link" href="../table/stokKain">View More <i
+          <a class="m-0 small text-primary card-link" href="../table/Stok_Kain">View More <i
               class="fas fa-chevron-right"></i></a>
         </div>
       </div>
@@ -307,7 +307,7 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <a class="m-0 small text-primary card-link" href="../table/tinta">View More <i
+          <a class="m-0 small text-primary card-link" href="../table/Tinta">View More <i
               class="fas fa-chevron-right"></i></a>
         </div>
       </div>
@@ -317,7 +317,7 @@
       <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary">Transaksi</h6>
-          <a class="m-0 float-right btn btn-danger btn-sm" href="../table/transaksi">View More<i
+          <a class="m-0 float-right btn btn-danger btn-sm" href="../table/Transaksi">View More<i
               class="fas fa-chevron-right"></i></a>
         </div>
         <div class="table-responsive">

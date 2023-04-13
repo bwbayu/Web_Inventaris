@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Home</li>
             <li class="breadcrumb-item">Forms</li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="../form/kertas">Kertas</a>
+            <li class="breadcrumb-item active" aria-current="page"><a href="../form/Kertas">Kertas</a>
             </li>
         </ol>
     </div>

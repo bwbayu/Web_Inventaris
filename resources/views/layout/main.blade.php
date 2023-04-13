@@ -50,17 +50,17 @@
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Forms</h6>
-            <a class="collapse-item" href="../form/transaksi">Transaksi</a>
-            <a class="collapse-item" href="../form/stokKain">Stok Kain</a>
-            <a class="collapse-item" href="../form/roll">Roll</a>
-            <a class="collapse-item" href="../form/kain">Kain</a>
-            <a class="collapse-item" href="../form/produksi">Produksi</a>
-            <a class="collapse-item" href="../form/stokKertas">Stok Kertas</a>
-            <a class="collapse-item" href="../form/kertas">Kertas</a>
-            <a class="collapse-item" href="../form/berat">Berat</a>
-            <a class="collapse-item" href="../form/tinta">Tinta</a>
-            <a class="collapse-item" href="../form/volume">Volume</a>
-            <a class="collapse-item" href="../form/warna">Warna</a>
+            <a class="collapse-item" href="../form/Transaksi">Transaksi</a>
+            <a class="collapse-item" href="../form/Stok_Kain">Stok Kain</a>
+            <a class="collapse-item" href="../form/Roll">Roll</a>
+            <a class="collapse-item" href="../form/Kain">Kain</a>
+            <a class="collapse-item" href="../form/Produksi">Produksi</a>
+            <a class="collapse-item" href="../form/Stok_Kertas">Stok Kertas</a>
+            <a class="collapse-item" href="../form/Kertas">Kertas</a>
+            <a class="collapse-item" href="../form/Berat">Berat</a>
+            <a class="collapse-item" href="../form/Tinta">Tinta</a>
+            <a class="collapse-item" href="../form/Volume">Volume</a>
+            <a class="collapse-item" href="../form/Warna">Warna</a>
           </div>
         </div>
       </li>

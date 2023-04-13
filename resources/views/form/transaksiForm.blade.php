@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item">Home</li>
                 <li class="breadcrumb-item">Forms</li>
                 <li class="breadcrumb-item active" aria-current="page"><a
-                        href="../form/transaksi">Transaksi</a>
+                        href="../form/Transaksi">Transaksi</a>
                 </li>
             </ol>
         </div>
