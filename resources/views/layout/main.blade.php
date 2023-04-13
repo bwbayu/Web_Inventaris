@@ -29,7 +29,7 @@
         <div class="sidebar-brand-icon">
           <img src="../img/logo/husker.png">
         </div>
-        <div class="sidebar-brand-text mx-3">Admin Page</div>
+        <div class="sidebar-brand-text mx-3">{{ $user1 }} Page</div>
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
