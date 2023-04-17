@@ -73,17 +73,17 @@
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tables</h6>
-            <a class="collapse-item" href="../table/transaksi">Transaksi</a>
-            <a class="collapse-item" href="../table/stokKain">Stok Kain</a>
-            <a class="collapse-item" href="../table/roll">Roll</a>
-            <a class="collapse-item" href="../table/kain">Kain</a>
-            <a class="collapse-item" href="../table/produksi">Produksi</a>
-            <a class="collapse-item" href="../table/stokKertas">Stok Kertas</a>
-            <a class="collapse-item" href="../table/kertas">Kertas</a>
-            <a class="collapse-item" href="../table/berat">Berat</a>
-            <a class="collapse-item" href="../table/tinta">Tinta</a>
-            <a class="collapse-item" href="../table/volume">Volume</a>
-            <a class="collapse-item" href="../table/warna">Warna</a>
+            <a class="collapse-item" href="../table/Transaksi">Transaksi</a>
+            <a class="collapse-item" href="../table/Stok_Kain">Stok Kain</a>
+            <a class="collapse-item" href="../table/Roll">Roll</a>
+            <a class="collapse-item" href="../table/Kain">Kain</a>
+            <a class="collapse-item" href="../table/Produksi">Produksi</a>
+            <a class="collapse-item" href="../table/Stok_Kertas">Stok Kertas</a>
+            <a class="collapse-item" href="../table/Kertas">Kertas</a>
+            <a class="collapse-item" href="../table/Berat">Berat</a>
+            <a class="collapse-item" href="../table/Tinta">Tinta</a>
+            <a class="collapse-item" href="../table/Volume">Volume</a>
+            <a class="collapse-item" href="../table/Warna">Warna</a>
           </div>
         </div>
       </li>
