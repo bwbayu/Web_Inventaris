@@ -23,7 +23,7 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="touchSpinBerat">Berat</label>
-                                <input id="touchSpinBerat" type="text" class="form-control">
+                                <input id="touchSpinBerat" type="number" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>

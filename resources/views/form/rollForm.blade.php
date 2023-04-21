@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="select2SinglePlaceholder2">Kain</label>
                                 <select class="select2-single-placeholder2 form-control" name="state"
-                                    id="select2SinglePlaceholder2">
+                                    id="select2SinglePlaceholder2" required>
                                     <option value="">Select</option>
                                     <option value="Aceh">Aceh</option>
                                     <option value="Sumatra Utara">Sumatra Utara</option>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="touchSpin2">Total Yard</label>
-                                <input id="touchSpin2" type="text" class="form-control">
+                                <input id="touchSpin2" type="number" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>

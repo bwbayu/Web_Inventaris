@@ -23,7 +23,7 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="touchSpinVolume">Volume</label>
-                                <input id="touchSpinVolume" type="text" class="form-control">
+                                <input id="touchSpinVolume" type="number" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>
