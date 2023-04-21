@@ -23,9 +23,9 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="namaWarna">Nama Warna</label>
-                                <input type="email" class="form-control" id="namaWarna"
+                                <input type="text" class="form-control" id="namaWarna"
                                     aria-describedby="namaWarnaHelp"
-                                    placeholder="Masukkan nama warna tinta">
+                                    placeholder="Masukkan nama warna tinta" required>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>

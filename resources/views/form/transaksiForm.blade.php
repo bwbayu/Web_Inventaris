@@ -22,32 +22,56 @@
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        <form action="{{ route('transaksi.store') }}" method="POST">
+                            @csrf
                             <div class="form-group">
                                 <label for="select2SinglePlaceholder1">Stok Kain</label>
-                                <select class="select2-single-placeholder1 form-control" name="state"
-                                    id="select2SinglePlaceholder1">
+                                <select class="select2-single-placeholder1 form-control" name="id_stok_kain" id="select2SinglePlaceholder1">    
                                     <option value="">Select</option>
-                                    <option value="Aceh">Aceh</option>
-                                    <option value="Sumatra Utara">Sumatra Utara</option>
+                                    @foreach ($stok_kains as $stok_kain)
+                                        @php
+                                            $id_kain = $stok_kain->ID_KAIN;
+                                            $nama_kain = App\Models\Kain::where('ID_KAIN', $id_kain)->value('NAMA_KAIN');
+                                            $id_prod = $stok_kain->ID_PRODUKSI;
+                                            $nama_prod = App\Models\Produksi::where('ID_PRODUKSI', $id_prod)->value('NAMA_PRODUKSI');
+                                            $data = $nama_kain . '-' . $nama_prod;
+                                        @endphp
+                                        <option value="{{ $stok_kain->ID_STOK_KAIN }}">{{ $data }}</option>
+                                    @endforeach    
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select2SinglePlaceholder2">Stok Tinta</label>
-                                <select class="select2-single-placeholder2 form-control" name="state"
+                                <select class="select2-single-placeholder2 form-control" name="id_tinta"
                                     id="select2SinglePlaceholder2">
                                     <option value="">Select</option>
-                                    <option value="Aceh">Aceh</option>
-                                    <option value="Sumatra Utara">Sumatra Utara</option>
+                                    @foreach ($tintas as $tinta)
+                                        @php
+                                            $id_vol = $tinta->ID_VOLUME;
+                                            $vol = App\Models\Volume::where('ID_VOLUME', $id_vol)->value('VOLUME');
+                                            $id_warna = $tinta->ID_WARNA;
+                                            $nama_warna = App\Models\Warna::where('ID_WARNA', $id_warna)->value('NAMA_WARNA');
+                                            $data = $nama_warna . '-' . $vol . ' ml';
+                                        @endphp
+                                        <option value="{{ $tinta->ID_TINTA }}">{{ $data }}</option>
+                                    @endforeach  
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="select2SinglePlaceholder3">Stok Kertas</label>
-                                <select class="select2-single-placeholder3 form-control" name="state"
+                                <select class="select2-single-placeholder3 form-control" name="id_stok_kertas"
                                     id="select2SinglePlaceholder3">
                                     <option value="">Select</option>
-                                    <option value="Aceh">Aceh</option>
-                                    <option value="Sumatra Utara">Sumatra Utara</option>
+                                    @foreach ($stok_kertass as $stok_kertas)
+                                        @php
+                                            $id_kertas = $stok_kertas->ID_KERTAS;
+                                            $nama_kertas = App\Models\Kertas::where('ID_KERTAS', $id_kertas)->value('NAMA_KERTAS');
+                                            $id_berat = $stok_kertas->ID_BERAT;
+                                            $berat = App\Models\Berat::where('ID_BERAT', $id_berat)->value('BERAT');
+                                            $data = $nama_kertas . '-' . $berat . ' kg (' . $stok_kertas->PANJANG . ' m x ' . $stok_kertas->LEBAR . ' m)';
+                                        @endphp
+                                        <option value="{{ $stok_kertas->ID_STOK_KERTAS }}">{{ $data }}</option>
+                                    @endforeach  
                                 </select>
                             </div>
                             <div class="form-group" id="simple-date1">
@@ -57,13 +81,13 @@
                                         <span class="input-group-text"><i
                                                 class="fas fa-calendar"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" value="" id="simpleDataInput">
+                                    <input type="text" class="form-control" value="" id="simpleDataInput" name="tanggal">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Keterangan</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1"
-                                    rows="3"></textarea>
+                                    rows="3" name="keterangan"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>
@@ -115,7 +139,6 @@
                 autoclose: true,
                 placeholder: today,
             });
-
 
         });
     </script>

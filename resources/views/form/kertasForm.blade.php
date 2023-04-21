@@ -23,8 +23,8 @@
                     <form action="">
                         <div class="form-group">
                             <label for="namaKertas">Nama Kertas</label>
-                            <input type="email" class="form-control" id="namaKertas"
-                                aria-describedby="namaKertasHelp" placeholder="Masukkan nama kertas">
+                            <input type="text" class="form-control" id="namaKertas"
+                                aria-describedby="namaKertasHelp" placeholder="Masukkan nama kertas" required>
                         </div>
                         <button type="submit" class="btn btn-primary mb-1">Submit</button>
                     </form>

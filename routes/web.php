@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\StokKainController;
+use App\Http\Controllers\StokKertasController;
+use App\Http\Controllers\TintaController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +44,13 @@ Route::get('/riwayatKeluar', function () {
 });
 
 // FORM
-Route::get('/form/{slug}', [FormController::class, 'show']);
+Route::get('/form/{slug}', [FormController::class, 'index']);
 
 // TABLE
 Route::get('/table/{link}', [TableController::class, 'show']);
+
+// POST
+Route::post('/form/Stok_Kain', [StokKainController::class, 'store'])->name('stok_kain.store');
+Route::post('/form/Stok_Kertas', [StokKertasController::class, 'store'])->name('stok_kertas.store');
+Route::post('/form/Tinta', [TintaController::class, 'store'])->name('tinta.store');
+Route::post('/form/Transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');

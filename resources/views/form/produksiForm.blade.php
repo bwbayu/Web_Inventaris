@@ -24,9 +24,9 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="namaProduksi">Nama Produksi</label>
-                                <input type="email" class="form-control" id="namaProduksi"
+                                <input type="text" class="form-control" id="namaProduksi"
                                     aria-describedby="namaProduksiHelp"
-                                    placeholder="Masukkan nama produksi">
+                                    placeholder="Masukkan nama produksi" required>
                             </div>
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>

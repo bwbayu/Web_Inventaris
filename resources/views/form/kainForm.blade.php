@@ -23,8 +23,8 @@
                     <form action="">
                         <div class="form-group">
                             <label for="namaKain">Nama Kain</label>
-                            <input type="email" class="form-control" id="namaKain"
-                                aria-describedby="namaKainHelp" placeholder="Masukkan nama kain">
+                            <input type="text" class="form-control" id="namaKain"
+                                aria-describedby="namaKainHelp" placeholder="Masukkan nama kain" required>
                         </div>
                         <button type="submit" class="btn btn-primary mb-1">Submit</button>
                     </form>
