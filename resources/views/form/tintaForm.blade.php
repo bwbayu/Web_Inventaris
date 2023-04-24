@@ -60,6 +60,15 @@
                                 <label for="touchSpinJumlah">Jumlah Tinta</label>
                                 <input id="touchSpinJumlah" type="number" class="form-control" name="jumlah_tinta">
                             </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>
                     </div>

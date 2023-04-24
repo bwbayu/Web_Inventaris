@@ -12,6 +12,15 @@ class TransaksiController extends Controller
 {
     public function store(Request $request)
     {
+        // validasi input request
+        $request->validate([
+            'id_tinta' => 'required',
+            'id_stok_kertas' => 'required',
+            'id_stok_kain' => 'required',
+            'tgl' => 'required',
+            'keterangan' => 'required',
+        ]);
+
         dd($request->all());
         $transaksi = new Transaksi;
         $transaksi->ID_TINTA = $request->id_tinta;

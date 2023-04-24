@@ -69,6 +69,15 @@
                                 <label for="touchSpinKertas">Jumlah Kertas</label>
                                 <input id="touchSpinKertas" type="number" class="form-control" name="jumlah_kertas">
                             </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <button type="submit" class="btn btn-primary mb-1">Submit</button>
                         </form>
                     </div>
@@ -169,8 +178,7 @@
         $('#touchSpinPanjang').TouchSpin({
             min: 0,
             max: 1000000000,
-            decimals: 1,
-            step: 0.1,
+            step: 1,
             postfix: 'cm',
             initval: 0,
             boostat: 5,
@@ -180,8 +188,7 @@
         $('#touchSpinLebar').TouchSpin({
             min: 0,
             max: 1000000000,
-            decimals: 1,
-            step: 0.1,
+            step: 1,
             postfix: 'cm',
             initval: 0,
             boostat: 5,
