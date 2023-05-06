@@ -33,9 +33,9 @@
                                             $nama_warna = App\Models\Warna::where('ID_WARNA', $id_warna)->value('NAMA_WARNA');
                                             $id_vol = $tinta->ID_VOLUME;
                                             $vol = App\Models\Volume::where('ID_VOLUME', $id_vol)->value('VOLUME');
-                                            $data = $nama_warna . '-' . $vol;
+                                            $data = $nama_warna . '-' . $vol . " ( Stok : " . $tinta->JUMLAH_TINTA ." )";
                                         @endphp
-                                        <option value="{{ $tinta->ID_TINTA }}">{{ $data }}</option>
+                                        <option value="{{ $tinta->ID_TINTA }}">{{ $data  }}</option>
                                     @endforeach  
                                     {{-- textfieldform --}}
                                 </select>

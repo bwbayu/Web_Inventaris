@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kain;
 use App\Models\Roll;
+use App\Models\Berat;
+use App\Models\Kertas;
+use App\Models\Riwayat;
+use App\Models\Produksi;
 use App\Models\StokKain;
 use App\Models\Transaksi;
 use App\Models\StokKertas;
@@ -117,7 +122,31 @@ class TransaksiController extends Controller
         $transaksi->KETERANGAN = $request->keterangan;
         $transaksi->save();
 
+        // TAMBAH DATA KE TABEL RIWAYAT SEBAGAI BARANG KELUAR
+        $new_record = new Riwayat;
+        $new_record->JENIS_BARANG = "Kain";
+        $id_kain = StokKain::where('ID_STOK_KAIN', $request->id_stok_kain)->value('ID_KAIN');
+        $nama_barang = Kain::where('ID_KAIN', $id_kain)->value('NAMA_KAIN');
+        $id_produksi = StokKain::where('ID_STOK_KAIN', $request->id_stok_kain)->value('ID_PRODUKSI');
+        $nama_barang2 = Produksi::where('ID_PRODUKSI', $id_produksi)->value('NAMA_PRODUKSI');
+        $new_record->NAMA_BARANG = $nama_barang . " ( " . $nama_barang2 . " )";
+        $new_record->JUMLAH_BARANG = $request->jumlah_kain;
+        $new_record->STATUS = "Keluar";
+        $new_record->save();
 
+        // TAMBAH DATA KE TABEL RIWAYAT SEBAGAI BARANG KELUAR
+        $new_record1 = new Riwayat;
+        $new_record1->JENIS_BARANG = "Kain";
+        $id_kertas = StokKertas::where('ID_STOK_KERTAS', $request->id_stok_kertas)->value('ID_KERTAS');
+        $nama_barang3 = Kertas::where('ID_KERTAS', $id_kertas)->value('NAMA_KERTAS');
+        $id_berat = StokKertas::where('ID_STOK_KERTAS', $request->id_stok_kertas)->value('ID_BERAT');
+        $nama_barang4 = Berat::where('ID_BERAT', $id_berat)->value('BERAT');
+        $panjang = StokKertas::where('ID_STOK_KERTAS', $request->id_stok_kertas)->value('PANJANG');
+        $lebar = StokKertas::where('ID_STOK_KERTAS', $request->id_stok_kertas)->value('LEBAR');
+        $new_record1->NAMA_BARANG = $nama_barang3 . " " . $nama_barang4 . "GSM" . " ( " . $panjang . " m x " . $lebar . " cm )";
+        $new_record1->JUMLAH_BARANG = $request->jumlah_kertas;
+        $new_record1->STATUS = "Keluar";
+        $new_record1->save();
 
         return redirect('/table/Transaksi')->with('success', 'Data berhasil ditambahkan.');
     }

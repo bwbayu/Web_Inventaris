@@ -13,6 +13,7 @@ use App\Models\Produksi;
 use App\Models\StokKain;
 use App\Models\Transaksi;
 use App\Models\StokKertas;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,6 +48,8 @@ class TableController extends Controller
             $data_db1 = Volume::all();
         } else if ($model_name == 'Warna') {
             $data_db1 = Warna::all();
+        } else if ($model_name == 'Riwayat') {
+            $data_db1 = Riwayat::all();
         }
 
         return view('table/' . $link . "Table", [

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tinta;
+use App\Models\Warna;
+use App\Models\Volume;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Tinta;
 
 class TintaController extends Controller
 {
@@ -41,6 +44,18 @@ class TintaController extends Controller
         // Perbarui kolom JUMLAH_TINTA pada tinta
         $tinta->JUMLAH_TINTA -= $request->jumlah_tinta;
         $tinta->save();
+
+        // TAMBAH DATA KE TABEL RIWAYAT SEBAGAI BARANG KELUAR
+        $new_record = new Riwayat;
+        $new_record->JENIS_BARANG = "Tinta";
+        $id_warna = Tinta::where('ID_TINTA', $request->id_tinta)->value('ID_WARNA');
+        $nama_barang = Warna::where('ID_WARNA', $id_warna)->value('NAMA_WARNA');
+        $id_volume = Tinta::where('ID_TINTA', $request->id_tinta)->value('ID_VOLUME');
+        $nama_barang2 = Volume::where('ID_VOLUME', $id_volume)->value('VOLUME');
+        $new_record->NAMA_BARANG = "Tinta " . $nama_barang . " ( " . $nama_barang2 . " ml )";
+        $new_record->JUMLAH_BARANG = $request->jumlah_tinta;
+        $new_record->STATUS = "Keluar";
+        $new_record->save();
 
         return redirect('/table/Tinta');
     }

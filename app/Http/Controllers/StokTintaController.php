@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tinta;
-use App\Models\Volume;
 use App\Models\Warna;
+use App\Models\Volume;
+use App\Models\Riwayat;
+use Illuminate\Http\Request;
 
 class StokTintaController extends Controller
 {
@@ -67,7 +68,7 @@ class StokTintaController extends Controller
                 $new_vol = new Volume;
                 $new_vol->VOLUME = $request->volume;
                 $new_vol->save();
-                $temp_vol = $new_vol->ID_WARNA;
+                $temp_vol = $new_vol->ID_VOLUME;
             }
 
             // ASSIGN DATA
@@ -76,6 +77,16 @@ class StokTintaController extends Controller
             $tinta->JUMLAH_TINTA = $request->jumlah_tinta;
             $tinta->save();
         }
+
+        // TAMBAH DATA KE TABEL RIWAYAT SEBAGAI BARANG MASUK
+        $new_record = new Riwayat;
+        $new_record->JENIS_BARANG = "Tinta";
+        $nama_barang = Warna::where('ID_WARNA', $temp_warna)->value('NAMA_WARNA');
+        $nama_barang2 = Volume::where('ID_VOLUME', $temp_vol)->value('VOLUME');
+        $new_record->NAMA_BARANG = "Tinta " . $nama_barang . " ( " . $nama_barang2 . " ml )";
+        $new_record->JUMLAH_BARANG = $request->jumlah_tinta;
+        $new_record->STATUS = "Masuk";
+        $new_record->save();
 
         return redirect('/table/Tinta')->with('success', 'Data berhasil ditambahkan.');
     }
