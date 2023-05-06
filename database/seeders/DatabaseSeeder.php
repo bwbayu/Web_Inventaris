@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
         Volume::factory(10)->create();
         Warna::factory(10)->create();
         Tinta::factory(10)->create();
-        Roll::factory(10)->create();
         StokKain::factory(10)->create();
+        Roll::factory(30)->create();
         StokKertas::factory(10)->create();
         Transaksi::factory(10)->create();
     }

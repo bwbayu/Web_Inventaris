@@ -6,30 +6,41 @@ use Illuminate\Http\Request;
 use App\Models\StokKain;
 use App\Models\Produksi;
 use App\Models\Kain;
+use App\Models\Roll;
 
 class StokKainController extends Controller
 {
     public function store(Request $request)
     {
         // validasi input request
-        $request->validate(
-            [
-                'id_kain' => 'required_without:nama_kain',
-                'nama_kain' => 'required_without:id_kain',
-                'id_produksi' => 'required_without:nama_produksi',
-                'nama_produksi' => 'required_without:id_produksi',
-                'total_roll' => 'required|integer|min:1',
-                'total_yard' => 'required|numeric|min:1',
-            ],
-            [
-                'id_kain' => 'Pilih salah satu kain atau gunakan switch button untuk mengisi kain secara manual',
-                'nama_kain' => 'Isi kain secara manual atau gunakan switch button untuk memilih kain',
-                'id_produksi' => 'Pilih salah satu produksi atau gunakan switch button untuk mengisi produksi secara manual',
-                'nama_produksi' => 'Isi data produksi secara manual atau gunakan switch button untuk memilih data produksi',
-                'total_roll' => 'Total roll tidak boleh kosong',
-                'total_yard' => 'Total yard tidak boleh kosong',
-            ]
-        );
+        $rules = [
+            'id_kain' => 'required_without:nama_kain',
+            'nama_kain' => 'required_without:id_kain',
+            'id_produksi' => 'required_without:nama_produksi',
+            'nama_produksi' => 'required_without:id_produksi',
+            'total_roll' => 'required|integer|min:1'
+        ];
+
+        $total_yard = 0;
+        for ($i = 1; $i <= $request->total_roll; $i++) {
+            $rules["rollForm$i"] = "required|integer|min:1";
+            $temp = 'rollForm' . $i;
+            $total_yard += $request->$temp;
+        }
+
+        $messages = [
+            'id_kain' => 'Pilih salah satu kain atau gunakan switch button untuk mengisi kain secara manual',
+            'nama_kain' => 'Isi kain secara manual atau gunakan switch button untuk memilih kain',
+            'id_produksi' => 'Pilih salah satu produksi atau gunakan switch button untuk mengisi produksi secara manual',
+            'nama_produksi' => 'Isi data produksi secara manual atau gunakan switch button untuk memilih data produksi',
+            'total_roll' => 'Total roll tidak boleh kosong'
+        ];
+
+        for ($i = 1; $i <= $request->total_roll; $i++) {
+            $messages["rollForm$i"] = "Roll ke-$i tidak boleh kosong";
+        }
+
+        $request->validate($rules, $messages);
         // CEK DATA KAIN DARI FORM DI TABEL KAIN
         $temp_kain = $request->id_kain; // nyimpen id kain
         if ($temp_kain == null) {
@@ -46,16 +57,14 @@ class StokKainController extends Controller
             }
         }
 
-        if (StokKain::where('ID_KAIN', $temp_kain)->where('ID_PRODUKSI', $temp_prod)->first()) {
-            $id_stok_kain = StokKain::where('ID_KAIN', $temp_kain)->where('ID_PRODUKSI', $temp_prod)->value('ID_STOK_KAIN');
-            $stok_kain = StokKain::findOrFail($id_stok_kain);
-
-            // perbarui kolom total pada tabel stok kain
-            $stok_kain->TOTAL_ROLL += $request->total_roll;
-            $stok_kain->TOTAL_YARD += $request->total_yard;
-            $stok_kain->save();
-            // dd($id_stok_kain);
-        } else {
+        // if (StokKain::where('ID_KAIN', $temp_kain)->where('ID_PRODUKSI', $temp_prod)->first()) {
+        // // perbarui kolom total pada tabel stok kain
+        // $stok_kain->TOTAL_ROLL += $request->total_roll;
+        // $stok_kain->TOTAL_YARD += $total_yard;
+        // $stok_kain->save();
+        // dd($id_stok_kain);
+        // } 
+        if (StokKain::where('ID_KAIN', $temp_kain)->where('ID_PRODUKSI', $temp_prod)->first() == null) {
             $stok_kain = new StokKain;
             if ($temp_kain == null) {
                 $new_kain = new Kain;
@@ -74,10 +83,19 @@ class StokKainController extends Controller
             // ASSIGN DATA
             $stok_kain->ID_KAIN = $temp_kain;
             $stok_kain->ID_PRODUKSI = $temp_prod;
-            // trigger ke tabel roll (?)
-            $stok_kain->TOTAL_ROLL = $request->total_roll;
-            $stok_kain->TOTAL_YARD = $request->total_yard;
+            $stok_kain->TOTAL_ROLL = 0;
+            $stok_kain->TOTAL_YARD = 0;
             $stok_kain->save();
+        }
+
+        $id_stok_kain = StokKain::where('ID_KAIN', $temp_kain)->where('ID_PRODUKSI', $temp_prod)->value('ID_STOK_KAIN');
+        // TAMBAH DATA KE TABEL ROLL KEMUDIAN AKAN DITRIGGER KE TABEL STOK KAIN
+        for ($i = 1; $i <= $request->total_roll; $i++) {
+            $new_roll = new Roll;
+            $new_roll->ID_STOK_KAIN = $id_stok_kain;
+            $temp_roll = 'rollForm' . $i;
+            $new_roll->YARD = $request->$temp_roll;
+            $new_roll->save();
         }
 
         return redirect('/table/Stok_Kain')->with('success', 'Data berhasil ditambahkan.');

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Warna;
 use App\Models\Volume;
-use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,10 +24,5 @@ class Tinta extends Model
     public function volume()
     {
         return $this->belongsTo(Volume::class, 'ID_VOLUME');
-    }
-
-    public function transaksi()
-    {
-        return $this->hasMany(Transaksi::class, 'ID_TRANSAKSI');
     }
 }

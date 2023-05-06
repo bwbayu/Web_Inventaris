@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Tinta;
 use App\Models\StokKain;
 use App\Models\StokKertas;
 use Illuminate\Database\Eloquent\Model;
@@ -15,12 +14,7 @@ class Transaksi extends Model
     protected $primaryKey = 'ID_TRANSAKSI';
     public $timestamps = true;
 
-    protected $fillable = ['ID_TINTA', 'ID_STOK_KERTAS', 'ID_STOK_KAIN', 'TGL', 'KETERANGAN', 'ROLL_TRANSAKSI', 'YARD_TRANSAKSI'];
-
-    public function tinta()
-    {
-        return $this->belongsTo(Tinta::class, 'ID_TINTA');
-    }
+    protected $fillable = ['ID_STOK_KERTAS', 'JUMLAH_KERTAS', 'ID_STOK_KAIN', 'JUMLAH_KAIN', 'TGL', 'KETERANGAN'];
 
     public function stokKertas()
     {

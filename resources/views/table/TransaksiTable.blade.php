@@ -26,18 +26,16 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Kain</th>
-                                    <th>Warna Tinta</th>
+                                    <th>Jumlah Kain</th>
                                     <th>Nama Kertas</th>
+                                    <th>Jumlah Kertas</th>
                                     <th>Tanggal</th>
                                     <th>Keterangan</th>
-                                    <th>Roll Transaksi</th>
-                                    <th>Yard Transaksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
-                                    use App\Models\Tinta;
-                                    use App\Models\Warna;
+                                    use App\Models\Roll;
                                     use App\Models\StokKain;
                                     use App\Models\Kain;
                                     use App\Models\StokKertas;
@@ -50,9 +48,6 @@
                                     // kain
                                     $id_kain = StokKain::where('ID_STOK_KAIN', $temp->ID_STOK_KAIN)->value('ID_KAIN');
                                     $nama_kain = Kain::where('ID_KAIN', $id_kain)->value('NAMA_KAIN');
-                                    // tinta
-                                    $id_tinta = Tinta::where('ID_TINTA', $temp->ID_TINTA)->value('ID_WARNA');
-                                    $warna_tinta = Warna::where('ID_WARNA', $id_tinta)->value('NAMA_WARNA');
                                     // kertas
                                     $id_kertas = StokKertas::where('ID_STOK_KERTAS', $temp->ID_STOK_KERTAS)->value('ID_KERTAS');
                                     $nama_kertas = Kertas::where('ID_KERTAS', $id_kertas)->value('NAMA_KERTAS');
@@ -60,12 +55,11 @@
                                 <tr>
                                     <td>{{ $no }}</td>
                                     <td>{{ $nama_kain }}</td>
-                                    <td>{{ $warna_tinta }}</td>
+                                    <td>{{ $temp->JUMLAH_KAIN }}</td>
                                     <td>{{ $nama_kertas }}</td>
+                                    <td>{{ $temp->JUMLAH_KERTAS }}</td>
                                     <td>{{ $temp->TGL }}</td>
                                     <td>{{ $temp->KETERANGAN }}</td>
-                                    <td>{{ $temp->ROLL_TRANSAKSI }}</td>
-                                    <td>{{ $temp->YARD_TRANSAKSI }}</td>
                                 </tr>
                                 @php
                                     $no++;

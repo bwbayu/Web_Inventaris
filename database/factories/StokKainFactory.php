@@ -19,8 +19,8 @@ class StokKainFactory extends Factory
         return [
             'id_produksi' => fake()->numberBetween(1, 9),
             'id_kain' => fake()->numberBetween(1, 9),
-            'total_roll' => fake()->numberBetween(1, 50),
-            'total_yard' => fake()->numberBetween(100, 1000)
+            'total_roll' => 0,
+            'total_yard' => 0
 
         ];
     }

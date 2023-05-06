@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\TableController;
-use App\Http\Controllers\StokKainController;
-use App\Http\Controllers\StokKertasController;
 use App\Http\Controllers\TintaController;
+use App\Http\Controllers\StokKainController;
+use App\Http\Controllers\StokTintaController;
+use App\Http\Controllers\StokKertasController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\RollController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,8 @@ Route::get('/riwayatKeluar', function () {
 
 // FORM
 Route::get('/form/{slug}', [FormController::class, 'index']);
+Route::get('/get-rolls/{idStokKain}', [RollController::class, 'getRolls']);
+Route::get('/get-panjang', [StokKertasController::class, 'getPanjang']);
 
 // TABLE
 Route::get('/table/{link}', [TableController::class, 'show']);
@@ -52,5 +56,6 @@ Route::get('/table/{link}', [TableController::class, 'show']);
 // POST
 Route::post('/form/Stok_Kain', [StokKainController::class, 'store'])->name('stok_kain.store');
 Route::post('/form/Stok_Kertas', [StokKertasController::class, 'store'])->name('stok_kertas.store');
+Route::post('/form/Stok_Tinta', [StokTintaController::class, 'store'])->name('stok_tinta.store');
 Route::post('/form/Tinta', [TintaController::class, 'store'])->name('tinta.store');
 Route::post('/form/Transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');

@@ -24,24 +24,6 @@
                         <form method="POST" action="{{ route('stok_kain.store') }}">
                             @csrf
                             <label class="switch">
-                                <input type="checkbox" id="switch-btn">
-                                <span class="slider"></span>
-                            </label>
-                            <div class="form-group">
-                                <label for="select2SinglePlaceholder1">Produksi</label>
-                                <select class="select2-single-placeholder1 form-control" name="id_produksi"
-                                    id="select2SinglePlaceholder1">
-                                    <option value="">Select</option>
-                                    @foreach ($produksis as $produksi)
-                                        <option value="{{ $produksi->ID_PRODUKSI }}">{{ $produksi->NAMA_PRODUKSI }}</option>
-                                    @endforeach  
-                                    {{-- textfieldform --}}
-                                </select>
-                                <input type="text" class="form-control" id="other-produksi"
-                                aria-describedby="other-produksiHelp"
-                                placeholder="Masukkan nama produksi" style="display: none;" name="nama_produksi">
-                            </div>
-                            <label class="switch">
                                 <input type="checkbox" id="switch-btn-1">
                                 <span class="slider"></span>
                             </label>
@@ -59,14 +41,63 @@
                                 aria-describedby="other-kainHelp"
                                 placeholder="Masukkan nama kain" style="display: none;" name="nama_kain">
                             </div>
+                            <label class="switch">
+                                <input type="checkbox" id="switch-btn">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="form-group">
+                                <label for="select2SinglePlaceholder1">Produksi</label>
+                                <select class="select2-single-placeholder1 form-control" name="id_produksi"
+                                    id="select2SinglePlaceholder1">
+                                    <option value="">Select</option>
+                                    @foreach ($produksis as $produksi)
+                                        <option value="{{ $produksi->ID_PRODUKSI }}">{{ $produksi->NAMA_PRODUKSI }}</option>
+                                    @endforeach  
+                                    {{-- textfieldform --}}
+                                </select>
+                                <input type="text" class="form-control" id="other-produksi"
+                                aria-describedby="other-produksiHelp"
+                                placeholder="Masukkan nama produksi" style="display: none;" name="nama_produksi">
+                            </div>
                             <div class="form-group">
                                 <label for="touchSpin1">Total Roll</label>
-                                <input id="touchSpin1" type="text" class="form-control" name="total_roll">
+                                <input id="touchSpin1" type="number" class="form-control" name="total_roll" oninput="buatForm()">
                             </div>
-                            <div class="form-group">
-                                <label for="touchSpin2">Total Yard</label>
-                                <input id="touchSpin2" type="text" class="form-control" name="total_yard">
-                            </div>
+                            <div id="formContainer"></div>
+                            <script>
+                                function buatForm() {
+                                  var jumlah = document.getElementById("touchSpin1").value;
+                                  var formContainer = document.getElementById("formContainer");
+                                
+                                  // Hapus semua form yang ada di dalam formContainer
+                                  while (formContainer.firstChild) {
+                                    formContainer.removeChild(formContainer.firstChild);
+                                  }
+                                
+                                  // Buat form baru sesuai dengan jumlah
+                                    for (var i = 1; i <= jumlah; i++) {
+                                        var formHtml = '<div class="form-group">' +
+                                            '<label for="rollForm' + i + '">Roll ' + i + '</label>' +
+                                            '<input type="number" id="rollForm' + i + '" name="rollForm' + i + '" class="form-control">' +
+                                            '</div>';
+                                        $("#formContainer").append(formHtml);
+                                    }
+                                    
+                                    // Inisialisasi TouchSpin untuk semua input dengan ID yang dimulai dari rollForm1 hingga rollForm
+                                    for (var i = 1; i <= jumlah; i++) {
+                                        $('#rollForm' + i).TouchSpin({
+                                        min: 0,
+                                        max: 1000000000,
+                                        // decimals: 2,
+                                        // step: 0.01,
+                                        postfix: 'yard',
+                                        initval: 0,
+                                        boostat: 5,
+                                        maxboostedstep: 10
+                                        });
+                                    }
+                                }
+                            </script>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -160,17 +191,6 @@
             boostat: 5,
             maxboostedstep: 10,
             initval: 0
-        });
-
-        $('#touchSpin2').TouchSpin({
-            min: 0,
-            max: 1000000000,
-            decimals: 2,
-            step: 0.01,
-            postfix: 'yard',
-            initval: 0,
-            boostat: 5,
-            maxboostedstep: 10
         });
 
     });

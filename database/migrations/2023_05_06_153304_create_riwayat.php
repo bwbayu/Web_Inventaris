@@ -13,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roll', function (Blueprint $table) {
+        Schema::create('riwayat', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
-            $table->id('ID_ROLL');
-            $table->unsignedBigInteger('ID_KAIN');
-            $table->integer('YARD')->unsigned();
+            $table->id('ID_RIWAYAT');
+            $table->string('JENIS_BARANG', 10);
+            $table->string('NAMA_BARANG', 200);
+            $table->integer('JUMLAH_BARANG');
+            $table->string('STATUS', 10);
             $table->timestamps();
-
-            $table->foreign('ID_KAIN')
-                ->references('ID_KAIN')->on('kain')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
         });
     }
 
@@ -36,10 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('roll', function (Blueprint $table) {
-            $table->dropForeign(['ID_KAIN']);
-        });
-
-        Schema::dropIfExists('roll');
+        Schema::dropIfExists('riwayat');
     }
 };

@@ -3,81 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\TintaRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Tinta;
-use App\Models\Volume;
-use App\Models\Warna;
 
 class TintaController extends Controller
 {
     public function store(Request $request)
     {
-        // validasi input
-        $request->validate(
+        // Validasi input
+        $validator = Validator::make(
+            $request->all(),
             [
-                'id_warna' => 'required_without:nama_warna',
-                'nama_warna' => 'required_without:id_warna',
-                'id_volume' => 'required_without:volume',
-                'volume' => 'required_without:id_volume',
+                'id_tinta' => 'required',
                 'jumlah_tinta' => 'required|integer|min:1',
             ],
             [
-                'id_warna' => 'Pilih salah satu data warna atau gunakan switch button untuk mengisi data warna secara manual',
-                'nama_warna' => 'Isi data warna secara manual atau gunakan switch button untuk memilih data warna',
-                'id_volume' => 'Pilih salah satu data volume atau gunakan switch button untuk mengisi data volume secara manual',
-                'volume' => 'Isi data volume secara manual atau gunakan switch button untuk memilih data volume',
-                'jumlah_tinta' => 'Jumlah tinta tidak boleh kosong',
+                'id_tinta.required' => 'Pilih salah satu data tinta',
+                'jumlah_tinta.required' => 'Jumlah tinta tidak boleh kosong',
             ]
         );
 
-        // CEK DATA WARNA DARI FORM DI TABEL WARNA
-        $temp_warna = $request->id_warna; // nyimpen id warna
-        if ($temp_warna == null) {
-            if (Warna::where('NAMA_WARNA', $request->nama_warna)->first()) {
-                $temp_warna = Warna::where('NAMA_WARNA', $request->nama_warna)->value('ID_WARNA');
-            }
+        // Cek JUMLAH_TINTA pada tinta
+        $tinta = Tinta::findOrFail($request->id_tinta);
+        if ($tinta->JUMLAH_TINTA < $request->jumlah_tinta) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('jumlah_tinta', 'Jumlah tinta melebihi stok yang tersedia.');
+            });
         }
 
-        // CEK DATA VOLUME DARI FORM DI TABEL VOLUME 
-        $temp_vol = $request->id_volume; // nyimpen id volume
-        if ($temp_vol == null) {
-            if (Volume::where('VOLUME', $request->volume)->first()) {
-                $temp_vol = Volume::where('VOLUME', $request->volume)->value('ID_VOLUME');
-            }
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return redirect('/form/Tinta')
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        if (Tinta::where('ID_WARNA', $temp_warna)->where('ID_VOLUME', $temp_vol)->first()) { // ga nambah data tinta baru (kombinasi warna & volumenya udh ada)
-            // dd(Tinta::where('ID_WARNA', $temp_warna)->where('ID_VOLUME', $temp_vol)->value('ID_TINTA'));
-            $id_tinta = Tinta::where('ID_WARNA', $temp_warna)->where('ID_VOLUME', $temp_vol)->value('ID_TINTA');
-            $tinta = Tinta::findOrFail($id_tinta);
+        // Perbarui kolom JUMLAH_TINTA pada tinta
+        $tinta->JUMLAH_TINTA -= $request->jumlah_tinta;
+        $tinta->save();
 
-            // perbarui kolom JUMLAH_TINTA pada tinta
-            $tinta->JUMLAH_TINTA += $request->jumlah_tinta;
-            $tinta->save();
-        } else { // kalau nambahin data tinta baru (kombinasi warna & volumenya blm ada)
-            $tinta = new Tinta;
-            if ($temp_warna == null) {
-                $new_warna = new Warna;
-                $new_warna->NAMA_WARNA = $request->nama_warna;
-                $new_warna->save();
-                $temp_warna = $new_warna->ID_WARNA;
-            }
-
-            // VOLUME
-            if ($temp_vol == null) {
-                $new_vol = new Volume;
-                $new_vol->VOLUME = $request->volume;
-                $new_vol->save();
-                $temp_vol = $new_vol->ID_WARNA;
-            }
-
-            // ASSIGN DATA
-            $tinta->ID_WARNA = $temp_warna;
-            $tinta->ID_VOLUME = $temp_vol;
-            $tinta->JUMLAH_TINTA = $request->jumlah_tinta;
-            $tinta->save();
-        }
-
-        return redirect('/table/Tinta')->with('success', 'Data berhasil ditambahkan.');
+        return redirect('/table/Tinta');
     }
 }
