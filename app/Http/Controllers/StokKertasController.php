@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\StokKertas;
-use App\Models\Kertas;
 use App\Models\Berat;
+use App\Models\Kertas;
+use App\Models\Riwayat;
+use App\Models\StokKertas;
+use Illuminate\Http\Request;
 
 class StokKertasController extends Controller
 {
@@ -63,14 +64,14 @@ class StokKertasController extends Controller
                 $new_berat = new Berat;
                 $new_berat->BERAT = $request->berat;
                 $new_berat->save();
-                $temp_berat = $new_berat->ID_KAIN;
+                $temp_berat = $new_berat->ID_BERAT;
             }
 
             if ($temp_kertas == null) {
                 $new_kertas = new Kertas;
                 $new_kertas->NAMA_KERTAS = $request->nama_kertas;
                 $new_kertas->save();
-                $temp_kertas = $new_kertas->ID_KAIN;
+                $temp_kertas = $new_kertas->ID_KERTAS;
             }
 
             // ASSIGN DATA
@@ -81,6 +82,16 @@ class StokKertasController extends Controller
             $stok_kertas->JUMLAH_KERTAS = $request->jumlah_kertas;
             $stok_kertas->save();
         }
+
+        // TAMBAH DATA KE TABEL RIWAYAT SEBAGAI BARANG MASUK
+        $new_record = new Riwayat;
+        $new_record->JENIS_BARANG = "Kertas";
+        $nama_barang = Kertas::where('ID_KERTAS', $temp_kertas)->value('NAMA_KERTAS');
+        $nama_barang2 = Berat::where('ID_BERAT', $temp_berat)->value('BERAT');
+        $new_record->NAMA_BARANG = $nama_barang . " " . $nama_barang2 . "GSM" . " ( " . $request->panjang . " m x " . $request->lebar . " cm )";
+        $new_record->JUMLAH_BARANG = $request->jumlah_kertas;
+        $new_record->STATUS = "Masuk";
+        $new_record->save();
 
         return redirect('/table/Stok_Kertas')->with('success', 'Data berhasil ditambahkanl.');
     }

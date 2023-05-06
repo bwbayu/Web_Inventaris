@@ -77,7 +77,7 @@
                                                         $.each(data, function(i, item) {
                                                             // Check if this roll has already been selected
                                                             if (!selectedRolls[item.ID_ROLL]) {
-                                                                html += '<option value="' + item.ID_ROLL + '">' + item.YARD + '</option>';
+                                                                html += '<option value="' + item.ID_ROLL + '">' + item.YARD +'</option>';
                                                             }
                                                         });
                                                     } else {
@@ -151,7 +151,7 @@
                                                     var html = '<option value="">Select</option>';
                                                     if (data.length > 0) {
                                                         $.each(data, function(i, item) {
-                                                            html += '<option value="' + item.ID_STOK_KERTAS + '">' + item.PANJANG + ' m x ' + item.LEBAR + ' m' + '</option>';
+                                                            html += '<option value="' + item.ID_STOK_KERTAS + '">' + item.PANJANG + ' m x ' + item.LEBAR + ' cm ( Stok : ' + item.JUMLAH_KERTAS +') </option>';
                                                         });
                                                     } else {
                                                         html += '<option value="">Tidak ada data yang tersedia</option>';

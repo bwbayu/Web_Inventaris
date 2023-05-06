@@ -7,6 +7,7 @@ use App\Models\StokKain;
 use App\Models\Produksi;
 use App\Models\Kain;
 use App\Models\Roll;
+use App\Models\Riwayat;
 
 class StokKainController extends Controller
 {
@@ -97,6 +98,17 @@ class StokKainController extends Controller
             $new_roll->YARD = $request->$temp_roll;
             $new_roll->save();
         }
+
+        // TAMBAH DATA KE TABEL RIWAYAT SEBAGAI BARANG MASUK
+        $new_record = new Riwayat;
+        $new_record->JENIS_BARANG = "Kain";
+        $nama_barang = Kain::where('ID_KAIN', $temp_kain)->value('NAMA_KAIN');
+        $nama_barang2 = Produksi::where('ID_PRODUKSI', $temp_prod)->value('NAMA_PRODUKSI');
+        $new_record->NAMA_BARANG = $nama_barang . " ( " . $nama_barang2 . " )";
+        $new_record->JUMLAH_BARANG = $request->total_roll;
+        $new_record->STATUS = "Masuk";
+        $new_record->save();
+
 
         return redirect('/table/Stok_Kain')->with('success', 'Data berhasil ditambahkan.');
     }
