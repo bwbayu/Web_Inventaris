@@ -26,7 +26,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="select2SinglePlaceholder1">Stok Kain</label>
-                                <select class="select2-single-placeholder1 form-control" name="id_stok_kain" id="select2SinglePlaceholder1">    
+                                <select class="select2-single-placeholder1 form-control" name="id_stok_kain" id="select2SinglePlaceholder1" onchange="buatFormKain()">    
                                     <option value="">Select</option>
                                     @foreach ($stok_kains as $stok_kain)
                                         @php
@@ -40,27 +40,70 @@
                                     @endforeach    
                                 </select>
                             </div>
+                            <div id="result"></div>
                             <div class="form-group">
-                                <label for="select2SinglePlaceholder2">Stok Tinta</label>
-                                <select class="select2-single-placeholder2 form-control" name="id_tinta"
-                                    id="select2SinglePlaceholder2">
-                                    <option value="">Select</option>
-                                    @foreach ($tintas as $tinta)
-                                        @php
-                                            $id_vol = $tinta->ID_VOLUME;
-                                            $vol = App\Models\Volume::where('ID_VOLUME', $id_vol)->value('VOLUME');
-                                            $id_warna = $tinta->ID_WARNA;
-                                            $nama_warna = App\Models\Warna::where('ID_WARNA', $id_warna)->value('NAMA_WARNA');
-                                            $data = $nama_warna . '-' . $vol . ' ml';
-                                        @endphp
-                                        <option value="{{ $tinta->ID_TINTA }}">{{ $data }}</option>
-                                    @endforeach  
-                                </select>
+                                <label for="jumlah_kain">Jumlah Kain</label>
+                                <input id="jumlah_kain" type="number" class="form-control" name="jumlah_kain" oninput="buatFormKain()">
                             </div>
+                            <div id="formContainerKain"></div>
+                            <script>
+                                function buatFormKain() {
+                                    var jumlah = document.getElementById("jumlah_kain").value;
+                                    var formContainer = document.getElementById("formContainerKain");
+                                    var selectedRolls = {}; // Object to keep track of selected rolls
+
+                                    while (formContainer.firstChild) {
+                                        formContainer.removeChild(formContainer.firstChild);
+                                    }
+
+                                    for (var j = 1; j <= jumlah; j++) {
+                                        (function(j) {
+                                            var formHtml =
+                                                '<div class="form-group">' +
+                                                '<label for="id_roll' + j + '">Roll Yard ' + j + '</label>' +
+                                                '<select name="id_roll[]" id="id_roll' + j + '" class="select-roll-' + j + ' form-control">' +
+                                                '<option value="">Select</option>' +
+                                                '</select>' +
+                                                '</div>';
+                                            var idStokKain = document.getElementById("select2SinglePlaceholder1").value;
+                                            $.ajax({
+                                                url: '/get-rolls/' + idStokKain,
+                                                type: 'GET',
+                                                dataType: 'json',
+                                                success: function(data) {
+                                                    // $('#result').html("berhasil");
+                                                    var html = '<option value="">Select</option>';
+                                                    if (data.length > 0) {
+                                                        $.each(data, function(i, item) {
+                                                            // Check if this roll has already been selected
+                                                            if (!selectedRolls[item.ID_ROLL]) {
+                                                                html += '<option value="' + item.ID_ROLL + '">' + item.YARD + '</option>';
+                                                            }
+                                                        });
+                                                    } else {
+                                                        html += '<option value="">Tidak ada data yang tersedia</option>';
+                                                    }
+                                                    // $('#result').html('#id_roll' + (j - 1));
+                                                    $('#id_roll' + j).html(html).trigger('change'); // Trigger change event
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    // $('#result').html("gagal");
+                                                    console.log(xhr.responseText);
+                                                }
+                                            });
+                                            $("#formContainerKain").append(formHtml);
+                                        })(j);
+                                        $('.select-roll-' + j).select2({
+                                            placeholder: "Select Yard",
+                                            allowClear: true
+                                        });
+                                    }
+                                }
+                            </script>
                             <div class="form-group">
                                 <label for="select2SinglePlaceholder3">Stok Kertas</label>
                                 <select class="select2-single-placeholder3 form-control" name="id_stok_kertas"
-                                    id="select2SinglePlaceholder3">
+                                    id="select2SinglePlaceholder3" onchange="buatFormKertas()">
                                     <option value="">Select</option>
                                     @foreach ($stok_kertass as $stok_kertas)
                                         @php
@@ -74,6 +117,63 @@
                                     @endforeach  
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="jumlah_kertas">Jumlah Kertas</label>
+                                <input id="jumlah_kertas" type="number" class="form-control" name="jumlah_kertas" oninput="buatFormKertas()">
+                            </div>
+                            <div id="formContainerKertas"></div>
+                            <script>
+                                function buatFormKertas() {
+                                    var jumlahKertas = document.getElementById("jumlah_kertas").value;
+                                    var formContainerKertas = document.getElementById("formContainerKertas");
+                                    while (formContainerKertas.firstChild) {
+                                        formContainerKertas.removeChild(formContainerKertas.firstChild);
+                                    }
+                                    var selectedOptions = {};
+                                    for (var j = 1; j <= jumlahKertas; j++) {
+                                        (function(j) {
+                                            var formHtml =
+                                                '<div class="form-group">' +
+                                                '<label for="id_panjang' + j + '">Panjang Kertas ' + j + '</label>' +
+                                                '<select name="id_panjang[]" id="id_panjang' + j + '" class="select-panjang-' + j + ' form-control">' +
+                                                '<option value="">Select</option>' +
+                                                '</select>' +
+                                                '</div>';
+                                            var idStokKertas = document.getElementById("select2SinglePlaceholder3").value;
+                                            $.ajax({
+                                                url: '/get-panjang',
+                                                type: 'GET',
+                                                dataType: 'json',
+                                                data: {
+                                                    idStokKertas: idStokKertas
+                                                },
+                                                success: function(data) {
+                                                    var html = '<option value="">Select</option>';
+                                                    if (data.length > 0) {
+                                                        $.each(data, function(i, item) {
+                                                            html += '<option value="' + item.ID_STOK_KERTAS + '">' + item.PANJANG + ' m x ' + item.LEBAR + ' m' + '</option>';
+                                                        });
+                                                    } else {
+                                                        html += '<option value="">Tidak ada data yang tersedia</option>';
+                                                    }
+                                                    // $('#result').html('#id_panjang' + (j - 1));
+                                                    $('#id_panjang' + j).html(html).trigger('change'); // Trigger change event
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    // $('#result').html("gagal");
+                                                    console.log(xhr.responseText);
+                                                }
+                                            });
+                                            $("#formContainerKertas").append(formHtml);
+                                        })(j);
+                                        $('.select-panjang-' + j).select2({
+                                            placeholder: "Select Panjang",
+                                            allowClear: true,
+                                            value: null
+                                        });
+                                    }
+                                }
+                            </script>
                             <div class="form-group" id="simple-date1">
                                 <label for="simpleDataInput">Tanggal Transaksi</label>
                                 <div class="input-group date">
@@ -113,21 +213,22 @@
     <script>
         $(document).ready(function () {
 
-            // Select2 Single  with Placeholder
+            // Select2 Single with Placeholder
             $('.select2-single-placeholder1').select2({
                 placeholder: "Select Kain",
                 allowClear: true
             });
 
-            // Select2 Single  with Placeholder
-            $('.select2-single-placeholder2').select2({
-                placeholder: "Select Tinta",
+            // Select2 Single with Placeholder
+            $('.select2-single-placeholder3').select2({
+                placeholder: "Select Kertas",
                 allowClear: true
             });
 
-            // Select2 Single  with Placeholder
-            $('.select2-single-placeholder3').select2({
-                placeholder: "Select Kertas",
+            
+            // Select2 Single with Placeholder
+            $('.select-roll').select2({
+                placeholder: "Select Yard",
                 allowClear: true
             });
 
@@ -137,12 +238,12 @@
             var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // mendapatkan bulan dan menambahkan leading zero jika hanya satu digit
             var year = currentDate.getFullYear(); // mendapatkan tahun
 
-            var today = day + '/' + month + '/' + year; // menggabungkan hari, bulan, dan tahun menjadi format 'MM/DD/YYYY'
+            var today = year + '-' + month + '-' + day; // menggabungkan hari, bulan, dan tahun menjadi format 'MM/DD/YYYY'
 
             document.getElementById("simpleDataInput").value = today; // mengatur nilai input menjadi tanggal saat ini
             // Bootstrap Date Picker
             $('#simple-date1 .input-group.date').datepicker({
-                format: 'dd/mm/yyyy',
+                format: 'yyyy-mm-dd',
                 todayBtn: 'linked',
                 todayHighlight: true,
                 autoclose: true,

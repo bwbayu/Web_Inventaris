@@ -19,6 +19,8 @@
   <link href="../vendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css" rel="stylesheet">
   <!-- Bootstrap DatePicker -->
   <link href="../vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+  {{-- Ajax --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>
    .switch {
       position: relative;
@@ -113,9 +115,10 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Forms</h6>
             <a class="collapse-item" href="../form/Transaksi">Transaksi</a>
+            <a class="collapse-item" href="../form/Tinta">Tinta</a>
             <a class="collapse-item" href="../form/Stok_Kain">Stok Kain</a>
             <a class="collapse-item" href="../form/Stok_Kertas">Stok Kertas</a>
-            <a class="collapse-item" href="../form/Tinta">Tinta</a>
+            <a class="collapse-item" href="../form/Stok_Tinta">Stok Tinta</a>
             {{-- <a class="collapse-item" href="../form/Roll">Roll</a>
             <a class="collapse-item" href="../form/Kain">Kain</a>
             <a class="collapse-item" href="../form/Produksi">Produksi</a>
@@ -136,6 +139,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tables</h6>
             <a class="collapse-item" href="../table/Transaksi">Transaksi</a>
+            <a class="collapse-item" href="../table/Riwayat">Riwayat</a>
             <a class="collapse-item" href="../table/Stok_Kain">Stok Kain</a>
             <a class="collapse-item" href="../table/Roll">Roll</a>
             <a class="collapse-item" href="../table/Kain">Kain</a>

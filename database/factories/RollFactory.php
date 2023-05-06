@@ -17,7 +17,7 @@ class RollFactory extends Factory
     public function definition()
     {
         return [
-            'id_kain' => fake()->numberBetween(1, 9),
+            'id_stok_kain' => fake()->numberBetween(1, 9),
             'yard' => fake()->numberBetween(50, 500)
         ];
     }

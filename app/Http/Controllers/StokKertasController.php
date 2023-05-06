@@ -84,4 +84,14 @@ class StokKertasController extends Controller
 
         return redirect('/table/Stok_Kertas')->with('success', 'Data berhasil ditambahkanl.');
     }
+
+    public function getPanjang(Request $request)
+    {
+        $kertas = StokKertas::where('ID_STOK_KERTAS', $request->input('idStokKertas'))->value("ID_KERTAS");
+        $berat = StokKertas::where('ID_STOK_KERTAS', $request->input('idStokKertas'))->value("ID_BERAT");
+
+        $data = StokKertas::where('ID_KERTAS', $kertas)->where('ID_BERAT', $berat)->get();
+
+        return response()->json($data);
+    }
 }

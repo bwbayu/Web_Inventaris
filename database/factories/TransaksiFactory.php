@@ -17,13 +17,12 @@ class TransaksiFactory extends Factory
     public function definition()
     {
         return [
-            'id_tinta' => fake()->numberBetween(1, 9),
             'id_stok_kertas' => fake()->numberBetween(1, 9),
+            'jumlah_kertas' => fake()->numberBetween(1, 100),
             'id_stok_kain' => fake()->numberBetween(1, 9),
+            'jumlah_kain' => fake()->numberBetween(1, 100),
             'tgl' => fake()->dateTime(),
-            'keterangan' => fake()->paragraph(),
-            'roll_transaksi' => fake()->numberBetween(1, 10),
-            'yard_transaksi' => fake()->numberBetween(50, 500)
+            'keterangan' => fake()->paragraph()
         ];
     }
 }

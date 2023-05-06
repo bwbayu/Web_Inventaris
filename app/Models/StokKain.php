@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Kain;
 use App\Models\Produksi;
 use App\Models\Transaksi;
+use App\Models\Roll;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -30,5 +31,10 @@ class StokKain extends Model
     public function transaksi()
     {
         return $this->hasMany(Transaksi::class, 'ID_TRANSAKSI');
+    }
+
+    public function roll()
+    {
+        return $this->hasMany(Roll::class, 'ID_ROLL');
     }
 }

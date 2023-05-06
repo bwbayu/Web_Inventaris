@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Kain;
+use App\Models\stokKain;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,10 +13,10 @@ class Roll extends Model
     protected $primaryKey = 'ID_ROLL';
     public $timestamps = true;
 
-    protected $fillable = ['ID_KAIN', 'YARD'];
+    protected $fillable = ['ID_STOK_KAIN', 'YARD'];
 
-    public function kain()
+    public function stokKain()
     {
-        return $this->belongsTo(Kain::class, 'ID_KAIN');
+        return $this->belongsTo(stokKain::class, 'ID_STOK_KAIN');
     }
 }
