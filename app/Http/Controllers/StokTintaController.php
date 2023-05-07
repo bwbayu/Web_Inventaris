@@ -88,6 +88,7 @@ class StokTintaController extends Controller
         $new_record->STATUS = "Masuk";
         $new_record->save();
 
-        return redirect('/table/Tinta')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('table.show', ['link' => 'Tinta'])
+            ->with('success', 'Data berhasil ditambahkan.');
     }
 }

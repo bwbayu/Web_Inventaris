@@ -9,7 +9,7 @@
                 <li class="breadcrumb-item">Home</li>
                 <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active" aria-current="page"><a
-                        href="../table/Roll">Roll</a>
+                        href="{{ route('table.show', ['link' => 'Roll']) }}">Roll</a>
                 </li>
             </ol>
         </div>
@@ -31,13 +31,18 @@
                             </thead>
                             <tbody>
                                 @php
+                                    use App\Models\StokKain;
                                     use App\Models\Kain;
                                     $no = 1;
                                 @endphp
                                 @foreach ($data as $temp)
+                                @php
+                                    $id_kain = StokKain::where('ID_STOK_KAIN', $temp->ID_STOK_KAIN)->value('ID_KAIN');
+                                    $nama_kain = Kain::where('ID_KAIN', $id_kain)->value('NAMA_KAIN');
+                                @endphp
                                 <tr>
                                     <td>{{ $no }}</td>
-                                    <td>{{ Kain::where('ID_KAIN', $temp->ID_KAIN)->value('NAMA_KAIN'); }}</td>
+                                    <td>{{ $nama_kain }}</td>
                                     <td>{{ $temp->YARD }}</td>
                                 </tr>
                                 @php

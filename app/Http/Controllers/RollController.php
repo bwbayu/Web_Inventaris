@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class RollController extends Controller
 {
-    public function getRolls($idStokKain)
+    public function getRolls(Request $request)
     {
-        $rolls = Roll::where('ID_STOK_KAIN', $idStokKain)->get();
+        $rolls = Roll::where('ID_STOK_KAIN', $request->input('idStokKain'))->get();
 
         return response()->json($rolls);
     }

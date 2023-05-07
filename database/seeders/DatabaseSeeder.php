@@ -43,5 +43,8 @@ class DatabaseSeeder extends Seeder
         Roll::factory(30)->create();
         StokKertas::factory(10)->create();
         Transaksi::factory(10)->create();
+        $this->call([
+            AdminSeeder::class,
+        ]);
     }
 }

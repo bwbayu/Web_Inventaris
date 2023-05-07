@@ -26,6 +26,12 @@ class TintaController extends Controller
             ]
         );
 
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return redirect()->route('tinta.store')
+                ->withErrors($validator);
+        }
+
         // Cek JUMLAH_TINTA pada tinta
         $tinta = Tinta::findOrFail($request->id_tinta);
         if ($tinta->JUMLAH_TINTA < $request->jumlah_tinta) {
@@ -36,9 +42,8 @@ class TintaController extends Controller
 
         // Jika validasi gagal
         if ($validator->fails()) {
-            return redirect('/form/Tinta')
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->route('tinta.store')
+                ->withErrors($validator);
         }
 
         // Perbarui kolom JUMLAH_TINTA pada tinta
@@ -57,6 +62,7 @@ class TintaController extends Controller
         $new_record->STATUS = "Keluar";
         $new_record->save();
 
-        return redirect('/table/Tinta');
+        return redirect()->route('table.show', ['link' => 'Tinta'])
+            ->with('success', 'Data berhasil ditambahkan.');
     }
 }
