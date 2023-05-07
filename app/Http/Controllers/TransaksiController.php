@@ -43,6 +43,12 @@ class TransaksiController extends Controller
             ]
         );
 
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return redirect()->route('transaksi.store')
+                ->withErrors($validator);
+        }
+
         // STORE DATA PANJANG
         $listPanjang = array();
         for ($i = 0; $i < $request->jumlah_kertas; $i++) {
@@ -61,9 +67,8 @@ class TransaksiController extends Controller
             }
             // Jika validasi gagal
             if ($validator->fails()) {
-                return redirect('/form/Transaksi')
-                    ->withErrors($validator)
-                    ->withInput();
+                return redirect()->route('transaksi.store')
+                    ->withErrors($validator);
             }
         }
 
@@ -89,9 +94,8 @@ class TransaksiController extends Controller
             }
             // Jika validasi gagal
             if ($validator->fails()) {
-                return redirect('/form/Transaksi')
-                    ->withErrors($validator)
-                    ->withInput();
+                return redirect()->route('transaksi.store')
+                    ->withErrors($validator);
             }
         }
 
@@ -148,6 +152,7 @@ class TransaksiController extends Controller
         $new_record1->STATUS = "Keluar";
         $new_record1->save();
 
-        return redirect('/table/Transaksi')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('table.show', ['link' => 'Transaksi'])
+            ->with('success', 'Data berhasil ditambahkan.');
     }
 }

@@ -9,7 +9,7 @@
                 <li class="breadcrumb-item">Home</li>
                 <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active" aria-current="page"><a
-                        href="../table/Stok_Kain">Stok Kain</a>
+                        href="{{ route('table.show', ['link' => 'Stok_Kain']) }}">Stok Kain</a>
                 </li>
             </ol>
         </div>

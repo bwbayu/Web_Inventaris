@@ -110,6 +110,7 @@ class StokKainController extends Controller
         $new_record->save();
 
 
-        return redirect('/table/Stok_Kain')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('table.show', ['link' => 'Stok_Kain'])
+            ->with('success', 'Data berhasil ditambahkan.');
     }
 }

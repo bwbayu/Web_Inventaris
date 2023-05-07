@@ -93,7 +93,8 @@ class StokKertasController extends Controller
         $new_record->STATUS = "Masuk";
         $new_record->save();
 
-        return redirect('/table/Stok_Kertas')->with('success', 'Data berhasil ditambahkanl.');
+        return redirect()->route('table.show', ['link' => 'Stok_Kertas'])
+            ->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function getPanjang(Request $request)

@@ -8,7 +8,7 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     <ol class="breadcrumb">
       <li class="breadcrumb-item">Home</li>
-      <li class="breadcrumb-item active" aria-current="page"><a href="dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><a href="/">Dashboard</a></li>
     </ol>
   </div>
 
@@ -161,7 +161,7 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <a class="m-0 small text-primary card-link" href="../table/Stok_Kertas">View More <i
+          <a class="m-0 small text-primary card-link" href="{{ route('table.show', ['link' => 'Stok_Kertas']) }}">View More <i
               class="fas fa-chevron-right"></i></a>
         </div>
       </div>
@@ -234,7 +234,7 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <a class="m-0 small text-primary card-link" href="../table/Stok_Kain">View More <i
+          <a class="m-0 small text-primary card-link" href="{{ route('table.show', ['link' => 'Stok_Kain']) }}">View More <i
               class="fas fa-chevron-right"></i></a>
         </div>
       </div>
@@ -307,7 +307,7 @@
           </div>
         </div>
         <div class="card-footer text-center">
-          <a class="m-0 small text-primary card-link" href="../table/Tinta">View More <i
+          <a class="m-0 small text-primary card-link" href="{{ route('table.show', ['link' => 'Tinta']) }}">View More <i
               class="fas fa-chevron-right"></i></a>
         </div>
       </div>
@@ -317,7 +317,7 @@
       <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary">Transaksi</h6>
-          <a class="m-0 float-right btn btn-danger btn-sm" href="../table/Transaksi">View More<i
+          <a class="m-0 float-right btn btn-danger btn-sm" href="{{ route('table.show', ['link' => 'Transaksi']) }}">View More<i
               class="fas fa-chevron-right"></i></a>
         </div>
         <div class="table-responsive">

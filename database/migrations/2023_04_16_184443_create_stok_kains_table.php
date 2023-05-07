@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('ID_STOK_KAIN');
             $table->unsignedBigInteger('ID_KAIN');
             $table->unsignedBigInteger('ID_PRODUKSI');
-            $table->integer('TOTAL_ROLL');
-            $table->integer('TOTAL_YARD');
+            $table->integer('TOTAL_ROLL')->default(0);
+            $table->integer('TOTAL_YARD')->nullable();
             $table->timestamps();
 
             $table->foreign('ID_KAIN')

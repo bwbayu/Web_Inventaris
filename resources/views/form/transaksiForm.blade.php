@@ -67,9 +67,13 @@
                                                 '</div>';
                                             var idStokKain = document.getElementById("select2SinglePlaceholder1").value;
                                             $.ajax({
-                                                url: '/get-rolls/' + idStokKain,
+                                                // url: '/get-rolls/' + idStokKain,
+                                                url: '{{ route("get-rolls") }}',
                                                 type: 'GET',
                                                 dataType: 'json',
+                                                data: {
+                                                    idStokKain: idStokKain
+                                                },
                                                 success: function(data) {
                                                     // $('#result').html("berhasil");
                                                     var html = '<option value="">Select</option>';
@@ -141,13 +145,14 @@
                                                 '</div>';
                                             var idStokKertas = document.getElementById("select2SinglePlaceholder3").value;
                                             $.ajax({
-                                                url: '/get-panjang',
+                                                url: '{{ route("get-panjang") }}',
                                                 type: 'GET',
                                                 dataType: 'json',
                                                 data: {
                                                     idStokKertas: idStokKertas
                                                 },
                                                 success: function(data) {
+                                                    // $('#result').html("berhasil");
                                                     var html = '<option value="">Select</option>';
                                                     if (data.length > 0) {
                                                         $.each(data, function(i, item) {
